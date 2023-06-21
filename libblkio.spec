@@ -68,8 +68,10 @@ Dokumentacja API biblioteki libblkio.
 %setup -q -n %{name}-v%{version}-f64bb10aa28ba2d30d1803eeb54179ef0ee0ba80 -b1
 
 %{__sed} -i -e '/^args=/ a args+=( --offline -v )' src/cargo-build.sh
+%{__sed} -i -e 's/ -C debuginfo=. / %{rpmrustflags} /' src/cargo-build.sh
 %ifarch x32
 %{__sed} -i -e '/^args=/ a args+=( --target x86_64-unknown-linux-gnux32 )' src/cargo-build.sh
+%{__sed} -i -e 's,/\${profile}/,/x86_64-unknown-linux-gnux32/\${profile}/,' src/cargo-build.sh
 %endif
 
 # use offline registry

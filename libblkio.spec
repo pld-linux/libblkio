@@ -27,6 +27,7 @@ BuildRequires:	rust >= 1.56
 %{?with_apidocs:BuildRequires:	sphinx-pdg-3}
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+ExclusiveArch:	%{x8664} %{ix86} x32 aarch64 armv6hl armv7hl armv7hnl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

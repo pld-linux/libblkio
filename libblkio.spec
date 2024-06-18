@@ -5,25 +5,25 @@
 Summary:	Block device I/O library
 Summary(pl.UTF-8):	Bibliotek we/wy urządzeń blokowych
 Name:		libblkio
-Version:	1.3.0
+Version:	1.5.0
 Release:	1
 License:	MIT or Apache v2.0 (+crates: Apache v2.0 or BSD, MIT, BSD, Unicode DFS 2016)
 Group:		Libraries
 #Source0Download: https://gitlab.com/libblkio/libblkio/tags
 Source0:	https://gitlab.com/libblkio/libblkio/-/archive/v%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	34397d6a333eb05b82d3388194d237be
+# Source0-md5:	7e8b856a816ac455412e8cfcb84208f8
 Source1:	%{name}-%{version}-vendor.tar.xz
-# Source1-md5:	6b44c3d7fc4fd5a2d411da95e89f28b3
+# Source1-md5:	edb2442b5a2659ae5d938feaf191d411
 URL:		https://gitlab.com/libblkio/libblkio
 BuildRequires:	cargo
 # rst2man
 BuildRequires:	docutils
-BuildRequires:	meson
+BuildRequires:	meson >= 0.61.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	python3
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.736
-BuildRequires:	rust >= 1.56
+BuildRequires:	rust >= 1.63
 %{?with_apidocs:BuildRequires:	sphinx-pdg-3}
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -65,7 +65,7 @@ API documentation for libblkio library.
 Dokumentacja API biblioteki libblkio.
 
 %prep
-%setup -q -n %{name}-v%{version}-f64bb10aa28ba2d30d1803eeb54179ef0ee0ba80 -b1
+%setup -q -n %{name}-v%{version}-6635473bb919c8ff9446cfd3d96517b31410f4f8 -b1
 
 %{__sed} -i -e '/^args=/ a args+=( --offline -v )' src/cargo-build.sh
 %{__sed} -i -e 's/ -C debuginfo=. / %{rpmrustflags} /' src/cargo-build.sh
@@ -89,7 +89,8 @@ EOF
 %build
 export CARGO_HOME="$(pwd)/.cargo"
 
-%meson build
+%meson build \
+	--default-library=shared
 
 %ninja_build -C build
 

@@ -21,6 +21,7 @@ BuildRequires:	docutils
 BuildRequires:	meson >= 0.61.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	python3
+BuildRequires:	python3-tomli
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	rust >= 1.63

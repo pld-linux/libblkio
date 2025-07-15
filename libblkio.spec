@@ -90,10 +90,10 @@ EOF
 %build
 export CARGO_HOME="$(pwd)/.cargo"
 
-%meson build \
+%meson \
 	--default-library=shared
 
-%ninja_build -C build
+%meson_build
 
 %if %{with apidocs}
 sphinx-build-3 -b html docs docs/_build/html
@@ -103,7 +103,7 @@ sphinx-build-3 -b html docs docs/_build/html
 rm -rf $RPM_BUILD_ROOT
 export CARGO_HOME="$(pwd)/.cargo"
 
-%ninja_install -C build
+%meson_install
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}
 cp -pr examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
